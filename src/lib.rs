@@ -457,3 +457,22 @@ fn hex_script(s: &str) -> bitcoin::Script {
     let v: Vec<u8> = bitcoin::hashes::hex::FromHex::from_hex(s).unwrap();
     bitcoin::Script::from(v)
 }
+
+#[cfg(feature = "fuzztarget")]
+pub mod re {
+    extern crate regex;
+
+    pub struct Regexes {
+        pub multi_wrap_pk_re: regex::Regex,
+        pub multi_wrap_pkh_re: regex::Regex,
+        pub one_at: regex::Regex,
+    }
+
+    pub fn compile() -> Regexes {
+        let multi_wrap_pk_re = regex::Regex::new("([a-z]+)c:pk_k\\(").unwrap();
+        let multi_wrap_pkh_re = regex::Regex::new("([a-z]+)c:pk_h\\(").unwrap();
+        let one_at = regex::Regex::new("(\\D)1@").unwrap();
+        Regexes { multi_wrap_pkh_re, multi_wrap_pk_re, one_at }
+    }
+}
+
