@@ -1,8 +1,7 @@
-
 extern crate miniscript;
 
-use miniscript::Miniscript;
 use miniscript::bitcoin::blockdata::script;
+use miniscript::Miniscript;
 
 fn do_test(data: &[u8]) {
     // Try round-tripping as a script
@@ -25,7 +24,8 @@ fn main() {
 }
 
 #[cfg(feature = "honggfuzz")]
-#[macro_use] extern crate honggfuzz;
+#[macro_use]
+extern crate honggfuzz;
 #[cfg(feature = "honggfuzz")]
 fn main() {
     loop {
